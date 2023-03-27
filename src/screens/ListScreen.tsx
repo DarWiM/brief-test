@@ -41,9 +41,10 @@ const ListScreen: FunctionComponent<ScreenProps> = ({navigation}) => {
   );
 
   const renderItem: ListRenderItem<ListItemType> = useCallback(
-    ({item}) => {
+    ({item, index}) => {
       return (
         <ListItem
+          ordinalNumber={index + 1}
           data={item}
           onPress={() => navigation.navigate('Details', {id: item.id})}
         />

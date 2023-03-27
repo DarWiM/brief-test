@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import type {RootState} from '../index';
 import {EventsData} from '../../api/getEvents';
 
@@ -29,3 +29,12 @@ export const {setData, setLoading} = eventsSlice.actions;
 
 export const selectEventsData = (state: RootState) => state.events.data;
 export const selectEventsLoading = (state: RootState) => state.events.loading;
+
+export const selectParam = <T extends unknown>(_: unknown, param: T) => param;
+
+export const selectDataItemById = (id: string) => (state: RootState) => {
+  return createSelector(
+    [selectEventsData, selectParam<string>],
+    (data, itemId) => data.find(item => item.id === itemId) || null,
+  )(state, id);
+};

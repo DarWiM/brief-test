@@ -6,10 +6,13 @@ import useEventsFetch from '../hooks/useEventsFetch';
 import ListItem, {ListItemType} from '../components/ListItem';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../components/NavigationRoot';
+import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 
 const FETCH_INTERVAL = 30 * 1000;
 
 const Separator: FunctionComponent = () => <View style={styles.separator} />;
+
+const safeAreaEdges: Edge[] = ['right', 'left', 'bottom'];
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'List'>;
 
@@ -62,7 +65,7 @@ const ListScreen: FunctionComponent<ScreenProps> = ({navigation}) => {
   }, [fetch, setIntervalWithDebug]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={safeAreaEdges}>
       <FlatList
         style={styles.list}
         data={data}
@@ -73,7 +76,7 @@ const ListScreen: FunctionComponent<ScreenProps> = ({navigation}) => {
         ItemSeparatorComponent={Separator}
         contentContainerStyle={styles.listContent}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

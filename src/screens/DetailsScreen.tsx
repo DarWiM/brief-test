@@ -6,6 +6,9 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../components/NavigationRoot';
 import {useTheme} from '@react-navigation/native';
 import getColorWithOpacity from '../functions/getColorWithOpacity';
+import {Edge, SafeAreaView} from 'react-native-safe-area-context';
+
+const safeAreaEdges: Edge[] = ['right', 'left', 'bottom'];
 
 const styles = StyleSheet.create({
   container: {
@@ -69,7 +72,7 @@ const DetailsScreen: FunctionComponent<ScreenProps> = ({route}) => {
   const {colors} = useTheme();
   const data = useAppSelector(selectDataItemById(route.params.id));
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={safeAreaEdges}>
       <View style={styles.header}>
         <View style={styles.headerLeftCol}>
           <View style={[styles.row, {backgroundColor: colors.card}]}>
@@ -128,7 +131,7 @@ const DetailsScreen: FunctionComponent<ScreenProps> = ({route}) => {
           </Text>
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
